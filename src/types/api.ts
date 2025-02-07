@@ -17,15 +17,3 @@ export interface Account {
   address: string;
   customer: object;
 }
-
-export interface TransferRequest {
-  id: string;
-  amount: string;
-  status: "pending" | "executed";
-  recipientDetails: {
-    accountNumber: string;
-    routingNumber: string;
-    bankName: string;
-  };
-  createdAt: string;
-}

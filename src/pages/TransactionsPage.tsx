@@ -24,8 +24,8 @@ export function TransactionsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex py-4 sm:py-6 lg:py-8">
-      <div className="w-full max-w-4xl space-y-6">
+    <div className="min-h-screen flex py-4 sm:py-6 lg:py-8">
+      <div className="w-full  space-y-6">
         <h1 className="text-2xl font-semibold text-gray-800">Transactions</h1>
         <TransactionList transactions={transactions} />
       </div>

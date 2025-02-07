@@ -21,7 +21,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
       <header className=" top-0 left-0 right-0 fixed z-50">
-        <nav className="bg-white shadow-sm">
+        <nav className="bg-background shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex items-center">
@@ -52,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       <main
-        className={`flex-1 bg-gradient-to-r from-blue-50 to-purple-50  *:max-w-7xl *:mx-auto *:px-4 sm:*:px-6 lg:*:px-8 ${
+        className={`flex-1 bg-foreground *:max-w-7xl *:mx-auto *:px-4 sm:*:px-6 lg:*:px-8 ${
           isDashboard && "pt-28"
         }`}
       >

@@ -63,13 +63,29 @@ export default {
       themes: {
         light: {
           colors: {
+            foreground: "#fafafa",
+            background: "#fff",
             primary: {
               DEFAULT: "#2023d4",
-              foreground: "#ffffff",
+              foreground: "#8a9eff",
             },
             secondary: {
               DEFAULT: "#6366f1",
-              foreground: "#ffffff",
+              foreground: "#8a9eff",
+            },
+          },
+        },
+        dark: {
+          colors: {
+            foreground: "#001731",
+            background: "#002E62",
+            primary: {
+              DEFAULT: "#fff",
+              foreground: "#000000",
+            },
+            secondary: {
+              DEFAULT: "#6366f1",
+              foreground: "#8a9eff",
             },
           },
         },

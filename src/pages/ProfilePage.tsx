@@ -52,7 +52,7 @@ export function ProfilePage() {
     <div className="max-w-7xl mx-auto  sm:py-6 lg:py-8">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Profile</h1>
       {account && (
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl">
+        <div className="bg-background rounded-xl shadow-lg p-8 max-w-2xl">
           <div className="space-y-6">
             <div className="flex items-center space-x-4 pb-4 border-b">
               <div className="bg-blue-100 p-3 rounded-full">

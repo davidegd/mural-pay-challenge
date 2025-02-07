@@ -1,4 +1,3 @@
-import { TransferRequest } from "@/types/api";
 import { api } from "./api";
 import { TRANSFER_API_KEY } from "@/constants/api";
 
@@ -11,29 +10,17 @@ const transferPost = async (url: string, data?: unknown) => {
   });
 };
 
-export const createTransferRequest = async (data: {
-  accountId: string;
-  amount: string;
-  recipientDetails: {
-    accountNumber: string;
-    routingNumber: string;
-    bankName: string;
-  };
-}): Promise<TransferRequest> => {
-  const response = await transferPost("/transfers", data);
+export const createTransferRequest = async (data) => {
+  const response = await transferPost("/transfer-request", data);
   return response.data;
 };
 
-export const executeTransfer = async (
-  transferId: string
-): Promise<TransferRequest> => {
+export const executeTransfer = async (transferId: string) => {
   const response = await transferPost(`/transfers/${transferId}/execute`);
   return response.data;
 };
 
-export const getTransfers = async (
-  accountId: string
-): Promise<TransferRequest[]> => {
+export const getTransfers = async (accountId: string) => {
   const response = await api.get(`/transfers?accountId=${accountId}`);
   return response.data;
 };

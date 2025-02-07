@@ -21,8 +21,8 @@ export const TransactionList: React.FC<TransactionListProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
-      <div className="flex w-full justify-between items-center mb-4">
+    <div className="bg-background rounded-lg shadow-sm p-4 sm:p-6">
+      <div className="flex w-full justify-end items-center mb-4">
         <SearchBar onSearch={handleSearch} />
       </div>
 

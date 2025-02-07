@@ -9,8 +9,8 @@ interface Props {
 
 export function AccountsWidget({ accounts }: Props) {
   return (
-    <div className="bg-white rounded-xl shadow-sm px-4 py-4">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Accounts</h2>
+    <div className="bg-background rounded shadow-sm px-4 py-2.5">
+      <h2 className="text-2xl font-bold text-gray-800 mb-3">Accounts</h2>
       {accounts.slice(0, 2).map((account) => (
         <AccountCard key={account.id} account={account} />
       ))}

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Account } from "../types/api";
-import { Card } from "@heroui/react";
+import { Button, Card } from "@heroui/react";
 import { formatAmount } from "@/utils/formatter";
-import { Wallet } from "lucide-react";
+import { CopyIcon, Wallet } from "lucide-react";
 
 interface AccountCardProps {
   account: Account;
@@ -11,13 +11,16 @@ interface AccountCardProps {
 export const AccountCard: React.FC<AccountCardProps> = ({
   account,
 }: AccountCardProps) => {
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text);
+  };
   return (
-    <Card shadow="none" className="py-3 px-4 mb-4 border border-neutral-100">
+    <Card shadow="none" className="py-3 px-4 mb-3 border border-neutral-100">
       <div className="flex justify-between">
-        <h4 className="text-lg font-semibold">{account?.name}</h4>
+        <h4 className="text-lg font-semibold text-black">{account?.name}</h4>
         <div className="flex items-end ">
           <div>
-            <h3 className="text-md font-medium text-neutral-600">Balance</h3>
+            <h3 className="text-md font-medium text-neutral-700">Balance</h3>
             <span className="text-md font-bold text-indigo-600">
               {account.balance.tokenSymbol}
             </span>{" "}
@@ -30,10 +33,18 @@ export const AccountCard: React.FC<AccountCardProps> = ({
 
       <div className="flex items-center space-x-2">
         <Wallet className="h-5 w-5 text-primary" />
-        <div className="flex flex-col text-wrap break-words w-5/6 sm:w-auto overflow-x-clip">
-          <span className="text-sm font-mono  p-2 rounded break-words *:break-words *:break-all">
+        <div className="flex text-wrap items-center break-words w-5/6 sm:w-auto overflow-x-clip">
+          <span className="text-sm font-mono text-neutral-700   rounded break-words *:break-words *:break-all">
             {account.address}
           </span>
+          <Button
+            size="sm"
+            variant="light"
+            isIconOnly
+            onPress={() => handleCopy(account.address)}
+          >
+            <CopyIcon className="h-4 w-3" />
+          </Button>
         </div>
       </div>
     </Card>

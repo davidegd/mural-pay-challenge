@@ -1,6 +1,6 @@
 import React from "react";
 import { TransferRequest } from "@/types/api";
-import { executeTransfer } from "@/services/transfer";
+import { executeTransfer } from "@/services/transactions";
 import { CheckCircle, Clock, ArrowRight } from "lucide-react";
 
 interface Props {
@@ -22,8 +22,8 @@ export function TransferList({ transfers, onTransferExecuted }: Props) {
   const executedTransfers = transfers.filter((t) => t.status === "executed");
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Transfers</h2>
+    <div className="bg-background rounded-xl shadow-lg p-8">
+      <h2 className="text-2xl font-bold text-primary mb-6">Transfers</h2>
 
       <div className="space-y-8">
         {pendingTransfers.length > 0 && (

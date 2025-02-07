@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createTransferRequest } from "@/services/transfer";
+import { createTransferRequest } from "@/services/transactions";
 import { Send } from "lucide-react";
 import { Button, Input } from "@heroui/react";
 
@@ -41,7 +41,7 @@ export function TransferForm({ accountId, onTransferCreated }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-8">
+    <div className="bg-background rounded shadow-sm p-8">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Create Transfer</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

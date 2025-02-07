@@ -45,7 +45,7 @@ export function DashboardPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full">
+        <div className="bg-background rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full">
           <h2 className="text-xl font-semibold text-red-600 mb-4">Error</h2>
           <p className="text-gray-600">{error}</p>
           <button
@@ -62,9 +62,11 @@ export function DashboardPage() {
   return (
     <div className="min-h-screen  flex py-4 sm:py-6">
       <div className="w-full max-w-6xl space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          <AccountsWidget accounts={accounts || []} />
-          <div className="flex  gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-6">
+          <div className="col-span-2">
+            <AccountsWidget accounts={accounts || []} />
+          </div>
+          <div className="flex flex-col  gap-4">
             <CreateTransactionWidget />
             <AddAccountWidget onAddAccount={() => {}} />
           </div>

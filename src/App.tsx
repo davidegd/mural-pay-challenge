@@ -7,6 +7,7 @@ import { TransferPage } from "@/pages/TransferPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { TransactionsPage } from "@/pages/TransactionsPage";
 import { AppRoutes } from "@/constants/routes";
+import { AccountsPage } from "./pages/AccountsPage";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
           <Route
             path={`${AppRoutes.dashboard}${AppRoutes.transactions}`}
             element={<TransactionsPage />}
+          />
+          <Route
+            path={`${AppRoutes.dashboard}${AppRoutes.accounts}`}
+            element={<AccountsPage />}
           />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>

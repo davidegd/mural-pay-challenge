@@ -12,8 +12,8 @@ export const getAccountById = async (accountId: string): Promise<Account> => {
 };
 
 export const createAccount = async (
-  customerId: string
+  accountInfo: CreateAccount
 ): Promise<CreateAccount> => {
-  const response = await api.post(`/accounts`, { customerId });
+  const response = await api.post(`/accounts`, accountInfo);
   return response.data;
 };
