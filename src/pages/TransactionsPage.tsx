@@ -1,33 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TransactionList } from "@/components/TransactionList";
+import { useAppContext } from "@/hooks/useAppContext";
+import { Button } from "@heroui/button";
+import { useNavigate } from "react-router-dom";
+import { AppRoutes } from "@/constants/routes";
+import { SwitchCamera } from "lucide-react";
 
 export function TransactionsPage() {
-  const [transactions, setTransactions] = useState([
-    {
-      date: "Nov 3",
-      from: "Core Account",
-      to: "Sinclair Toffa",
-      tags: "(payroll)",
-      amount: "500.00 USDC",
-    },
-    {
-      date: "Oct 31",
-      from: "Chris Fernandes",
-      to: "Third Party Vendor Account",
-      tags: "(reimbursement)",
-      amount: "+200.00 USDC",
-    },
-  ]);
+  const {
+    hooks: { getTransactions },
+    state: { transactions, customerId },
+  } = useAppContext();
+  const navigate = useNavigate();
 
-  const handleSearch = (query: string) => {
-    console.log("Searching for:", query);
-  };
+  useEffect(() => {
+    getTransactions(customerId, "IN_REVIEW");
+  }, []);
 
   return (
     <div className="min-h-screen flex py-4 sm:py-6 lg:py-8">
       <div className="w-full  space-y-6">
-        <h1 className="text-2xl font-semibold text-gray-800">Transactions</h1>
-        <TransactionList transactions={transactions} />
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-semibold text-gray-800">Transactions</h2>
+          <Button
+            size="lg"
+            color="primary"
+            radius="md"
+            onPress={() =>
+              navigate(`${AppRoutes.dashboard}${AppRoutes.transfer}`)
+            }
+            startContent={<SwitchCamera size={24} />}
+          >
+            Make Transaction
+          </Button>
+        </div>
+        <TransactionList transactions={transactions || []} />
       </div>
     </div>
   );

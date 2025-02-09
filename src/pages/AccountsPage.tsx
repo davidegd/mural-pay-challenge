@@ -51,12 +51,13 @@ export const AccountsPage = () => {
         <h2 className="text-2xl font-bold text-black">Accounts</h2>{" "}
         <Button
           onPress={() => setOpenCreateAccountModal(!openCreateAccountModal)}
-          radius="sm"
+          radius="md"
+          size="lg"
           startContent={<PlusIcon />}
           color="primary"
           isDisabled={accounts && accounts.length > 1}
         >
-          Create Account
+          Create new account
         </Button>
       </div>
       <div className="bg-background shadow-sm rounded py-4 px-4">

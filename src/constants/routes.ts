@@ -5,5 +5,6 @@ export const AppRoutes = {
   transactions: "/transactions",
   transfer: "/transfer",
   accounts: "/accounts",
+  contacts: "/contacts",
   notFound: "*",
 };

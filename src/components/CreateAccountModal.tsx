@@ -101,7 +101,7 @@ export const CreateAccountModal = ({
             className="btn btn-secondary"
             size="lg"
             isDisabled={loading}
-            radius="sm"
+            radius="md"
           >
             Cancel
           </Button>
@@ -112,7 +112,7 @@ export const CreateAccountModal = ({
             onPress={() => onContinue(accountInfo)}
             className="btn btn-primary"
             isDisabled={loading}
-            radius="sm"
+            radius="md"
           >
             {loading ? "Creating Account" : "Create"}
           </Button>

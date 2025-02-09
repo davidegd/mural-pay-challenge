@@ -52,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       <main
-        className={`flex-1 bg-foreground *:max-w-7xl *:mx-auto *:px-4 sm:*:px-6 lg:*:px-8 ${
+        className={`flex-1 bg-gradient-to-r from-blue-50 to-purple-50  *:max-w-7xl *:mx-auto *:px-4 sm:*:px-6 lg:*:px-8 ${
           isDashboard && "pt-28"
         }`}
       >

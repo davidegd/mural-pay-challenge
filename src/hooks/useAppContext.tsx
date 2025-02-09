@@ -1,16 +1,7 @@
 import React, { createContext, useContext } from "react";
 import { useAppStore } from "./useAppStore";
-import { AppState } from "@/types/appState";
 
-import { Dispatch } from "react";
-import { ActionType } from "@/store/actions/base-action";
-
-interface AppContextType {
-  state: AppState;
-  dispatch: Dispatch<ActionType>;
-}
-
-const AppContext = createContext<AppContextType | null>(null);
+const AppContext = createContext(null);
 
 export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

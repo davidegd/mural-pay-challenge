@@ -1,6 +1,6 @@
 import React from "react";
 import { AppRoutes } from "@/constants/routes";
-import { ArrowLeftRight, User, Wallet, History, Landmark } from "lucide-react";
+import { User, Wallet, Landmark, SwitchCamera } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
 export const DashboardNavbar = () => {
@@ -19,14 +19,9 @@ export const DashboardNavbar = () => {
       icon: Landmark,
     },
     {
-      name: "New Transfer",
-      path: `${AppRoutes.dashboard}${AppRoutes.transfer}`,
-      icon: ArrowLeftRight,
-    },
-    {
       name: "Transactions",
       path: `${AppRoutes.dashboard}${AppRoutes.transactions}`,
-      icon: History,
+      icon: SwitchCamera,
     },
     {
       name: "Profile",

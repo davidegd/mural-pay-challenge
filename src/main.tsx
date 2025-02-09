@@ -9,9 +9,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppContextProvider>
       <HeroUIProvider>
-        <main className="light text-foreground bg-background">
-          <App />
-        </main>
+        <App />
       </HeroUIProvider>
     </AppContextProvider>
   </StrictMode>

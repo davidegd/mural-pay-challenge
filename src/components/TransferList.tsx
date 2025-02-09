@@ -1,6 +1,4 @@
 import React from "react";
-import { TransferRequest } from "@/types/api";
-import { executeTransfer } from "@/services/transactions";
 import { CheckCircle, Clock, ArrowRight } from "lucide-react";
 
 interface Props {
@@ -11,7 +9,6 @@ interface Props {
 export function TransferList({ transfers, onTransferExecuted }: Props) {
   const handleExecuteTransfer = async (transferId: string) => {
     try {
-      await executeTransfer(transferId);
       onTransferExecuted();
     } catch (error) {
       console.error("Error executing transfer:", error);
