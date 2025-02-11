@@ -12,7 +12,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const showNavbar = true;
   const isDashboard = location.pathname.includes("/dashboard");
   const [theme, setTheme] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    window?.matchMedia("(prefers-color-scheme: dark)")?.matches
+      ? "dark"
+      : "light"
   );
 
   const {
