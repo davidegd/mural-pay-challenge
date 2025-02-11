@@ -15,13 +15,15 @@ export const TransferExecuted: React.FC<TransferExecutedProps> = ({
         <CheckCheck size={72} />
         <h2 className="font-semibold">Transaction executed successfully</h2>
       </div>
-      <p className="my-4 font-bold">The transaction will be updated shortly,</p>
+      <p className="my-4 font-bold">
+        The transaction status will be updated shortly
+      </p>
       <Button
         size="lg"
         color="success"
         radius="md"
         onPress={onContinue}
-        className="w-full text-white my-4"
+        className="w-5/6 text-white my-4"
       >
         Done
       </Button>

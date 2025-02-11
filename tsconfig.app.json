@@ -27,7 +27,9 @@
       "@store/*": ["src/store/*"],
       "@constants/*": ["src/constants/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "esModuleInterop": true,
+    "types": ["jest", "node"]
   },
   "include": ["src"]
 }

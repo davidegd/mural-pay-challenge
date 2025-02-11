@@ -9,7 +9,7 @@ import { useTransactions } from "@/hooks/useTransactions";
 import { TransferStatusEnum } from "@/constants/common";
 import { ExecutedTransactionModal } from "@/components/ExecutedTransactionModal";
 
-export function TransactionsPage() {
+const TransactionsPage: React.FC = () => {
   const {
     state: { transactions },
     dispatch,
@@ -91,4 +91,6 @@ export function TransactionsPage() {
       </div>
     </div>
   );
-}
+};
+
+export default TransactionsPage;

@@ -6,6 +6,7 @@ import {
 } from "@/services/transactions";
 import { ActionType } from "@/store/actions/base-action";
 import { setTransactionsDataAction } from "@/store/actions/transactions";
+import { CreatedTransactionResponse } from "@/types/api";
 import { useState } from "react";
 
 export const useTransactions = (dispatch: (action: ActionType) => void) => {
@@ -33,14 +34,14 @@ export const useTransactions = (dispatch: (action: ActionType) => void) => {
 
   const createTransaction = async (
     transactionData
-  ): Promise<{ id: string }> => {
+  ): Promise<CreatedTransactionResponse> => {
     setTransactionStatus(TransferStatusEnum.Pending);
     try {
       const response = await createTransactionRequest(transactionData);
       if (response) {
         setTransactionStatus(null);
       }
-      return response;
+      return response as CreatedTransactionResponse;
     } catch (error) {
       console.error("Error:", error);
       setTransactionStatus(TransferStatusEnum.Failed);

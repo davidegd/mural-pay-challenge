@@ -1,20 +1,19 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { RecipientInfoForm } from "./RecipientInfoForm";
 import { TransferFormStepsEnum, TransferStatusEnum } from "@/constants/common";
 import { TransferAmountForm } from "./TransferAmountForm";
-import { Account } from "@/types/api";
+import { Account, CreatedTransactionResponse } from "@/types/api";
 import { ReviewForm } from "./ReviewForm";
 import { useForm } from "react-hook-form";
-import { Check, CheckCheck } from "lucide-react";
-import { Button } from "@heroui/button";
 import { TransferRequested } from "./TransferRequested";
 import { TransferExecuted } from "./TransferExecuted";
+import { useLocation } from "react-router-dom";
 
 interface Props {
   accounts: Account[];
   transferStep: TransferFormStepsEnum;
   setTransferStep: (step: TransferFormStepsEnum) => void;
-  createTransaction: (data) => Promise<{ id: string }>;
+  createTransaction: (data) => Promise<CreatedTransactionResponse>;
   setTransactionStatus: (status: TransferStatusEnum) => void;
   handleExecuteTransaction: (transactionId: string) => void;
 }
@@ -37,9 +36,7 @@ export function TransferForm({
     mode: "onBlur",
     reValidateMode: "onChange",
   });
-  const [transferRequestId, setTransferRequestId] = useState<string | null>(
-    null
-  );
+  const location = useLocation();
 
   const CommonFormProps = {
     register,
@@ -50,7 +47,6 @@ export function TransferForm({
   };
 
   watch();
-
   const handleCreateTransaction = async (transactionData) => {
     const data = {
       payoutAccountId: transactionData.payoutAccountId,
@@ -63,18 +59,12 @@ export function TransferForm({
         },
       ],
     };
-    try {
-      const response = await createTransaction(data);
-
-      setTransferRequestId(response.id);
-      console.log("RRRRR", response);
-    } catch (error) {
-      console.error("Error:", error);
-      setTransactionStatus(TransferStatusEnum.Failed);
-    }
-    return;
+    await createTransaction(data).then((response) => {
+      location.state = { transferRequestId: response.id };
+      setTransferStep(TransferFormStepsEnum.Requested);
+    });
   };
-  console.log(transferRequestId);
+
   const TransferStepsComponents = {
     [TransferFormStepsEnum.Amount]: (
       <TransferAmountForm
@@ -102,7 +92,7 @@ export function TransferForm({
     ),
     [TransferFormStepsEnum.Requested]: (
       <TransferRequested
-        transferRequestId={transferRequestId}
+        transferRequestId={location?.state?.transferRequestId}
         handleExecuteTransaction={handleExecuteTransaction}
         setTransactionStatus={setTransactionStatus}
         setTransferStep={setTransferStep}

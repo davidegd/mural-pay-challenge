@@ -16,6 +16,7 @@ export const TransferRequested: React.FC<TransferRequestedProps> = ({
   handleExecuteTransaction,
   transferRequestId,
 }) => {
+  console.log("ttt", transferRequestId);
   return (
     <div className="flex flex-col items-center justify-between space-y-6 ">
       <div className="flex flex-col items-center text-lg text-primary text-center">
