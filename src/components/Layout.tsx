@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CircleUser, LogOut, Moon, Sun, UserCog } from "lucide-react";
 
 import Logo from "@/assets/images/logo.png";
@@ -23,10 +23,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   if (!showNavbar) {
     return <>{children}</>;
-  }
-
-  if (!customerId) {
-    return <Navigate to="/" replace />;
   }
 
   const UserButton = (theme) => (

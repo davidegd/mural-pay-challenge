@@ -9,11 +9,12 @@ import { useAccounts } from "@/hooks/useAccounts";
 import { useTransactions } from "@/hooks/useTransactions";
 import { TransferStatusEnum } from "@/constants/common";
 import { TransactionsWidget } from "@/components/TransactionsWidget";
+import { Navigate } from "react-router-dom";
 
 const DashboardPage = () => {
   const customerId = localStorage.getItem("customerId");
   const {
-    state: { customerName, accounts, transactions },
+    state: { accounts, transactions },
     dispatch,
   } = useAppContext();
 
@@ -30,7 +31,11 @@ const DashboardPage = () => {
         5
       );
     }
-  }, [customerId, customerName]);
+  }, [customerId]);
+
+  if (!customerId) {
+    return <Navigate to="/" replace />;
+  }
 
   if (loading) {
     return (
