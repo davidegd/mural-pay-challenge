@@ -1,9 +1,33 @@
-import { defineConfig } from "vite";
+import { defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
+import compression from "vite-plugin-compression";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ["@babel/plugin-transform-react-jsx", { optimize: true }],
+        ],
+      },
+    }),
+    splitVendorChunkPlugin(),
+    compression({
+      algorithm: "gzip",
+      ext: ".gz",
+    }),
+    compression({
+      algorithm: "brotliCompress",
+      ext: ".br",
+    }),
+    visualizer({
+      filename: "./dist/stats.html",
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
   server: {
     port: 3000,
     strictPort: true,
@@ -26,21 +50,63 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "react-router-dom"],
+    include: [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "framer-motion",
+      "immer",
+      "axios",
+    ],
     exclude: ["@vitejs/plugin-react"],
+    esbuildOptions: {
+      target: "esnext",
+      treeShaking: true,
+    },
   },
   build: {
     target: "esnext",
-    sourcemap: false,
+    sourcemap: process.env.NODE_ENV === "development",
     minify: "esbuild",
     cssCodeSplit: true,
+    assetsInlineLimit: 4096,
+    chunkSizeWarningLimit: 1000,
+    reportCompressedSize: true,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            return id.split("node_modules/")[1].split("/")[0];
-          }
+        manualChunks: {
+          vendor: [
+            "react",
+            "react-dom",
+            "react-router-dom",
+          ],
+          ui: [
+            "@heroui/button",
+            "@heroui/input",
+            "@heroui/react",
+            "@heroui/spinner",
+            "@heroui/system",
+            "@heroui/theme",
+          ],
+          utils: [
+            "axios",
+            "immer",
+            "use-immer",
+            "framer-motion",
+          ],
         },
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split(".");
+          let extType = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            extType = "img";
+          } else if (/woff|woff2/.test(extType)) {
+            extType = "fonts";
+          }
+          return `assets/${extType}/[name]-[hash][extname]`;
+        },
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js",
       },
     },
   },
@@ -48,4 +114,11 @@ export default defineConfig({
     "process.env": process.env,
   },
   envDir: "./",
+  preview: {
+    port: 3000,
+    strictPort: true,
+    headers: {
+      "Cache-Control": "public, max-age=31536000",
+    },
+  },
 });

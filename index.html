@@ -1,16 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Mural Pay - Secure and efficient payment processing solution"
+    />
+    <meta
+      name="keywords"
+      content="mural pay, payments, secure payments, payment processing"
+    />
+    <meta name="author" content="Mural Pay" />
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta
+      http-equiv="Permissions-Policy"
+      content="geolocation=(), camera=(), microphone=()"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Mural Pay - Payment Processing Solution"
+    />
+    <meta
+      property="og:description"
+      content="Secure and efficient payment processing solution"
+    />
+    <meta property="og:site_name" content="Mural Pay" />
     <link
       rel="icon"
       type="image/svg+xml"
       href="./src/assets/images/muralpay.svg"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mural Pay Challenge</title>
+    <link rel="apple-touch-icon" href="./src/assets/images/muralpay.svg" />
+
+    <link rel="preload" href="/src/main.tsx" as="script" type="module" />
+    <link rel="preload" href="/src/index.css" as="style" />
+
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>Mural Pay - Challenge</title>
   </head>
   <body>
+    <noscript>
+      <p>Please enable JavaScript to use Mural Pay.</p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
