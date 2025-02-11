@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import { CircleUser, LogOut, UserCog } from "lucide-react";
 
 import Logo from "@/assets/images/logo.png";
 import { DashboardNavbar } from "./DashboardNavbar";
 import { useAppContext } from "@/hooks/useAppContext";
+import { Popover, PopoverTrigger, PopoverContent, Button } from "@heroui/react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const customerId = localStorage.getItem("customerId");
@@ -17,6 +18,35 @@ export function Layout({ children }: { children: React.ReactNode }) {
   if (!showNavbar) {
     return <>{children}</>;
   }
+
+  const UserButton = () => (
+    <Popover placement="bottom" showArrow={true}>
+      <PopoverTrigger>
+        <Button variant="light" endContent={<CircleUser size={16} />}>
+          {customerName}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div className="px-1 py-2 space-y-4 w-32">
+          <Link
+            to="/dashboard/profile"
+            className="flex items-center text-gray-600 hover:text-blue-600"
+          >
+            <UserCog className="h-5 w-5" />
+            <span className="ml-2">Profile</span>
+          </Link>
+          <Link
+            onClick={() => localStorage.removeItem("customerId")}
+            to="/"
+            className="flex items-center text-gray-600 hover:text-blue-600"
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="ml-2">Sign Out</span>
+          </Link>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -33,17 +63,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <span className="ml-2 font-medium">Mural Pay</span>
                 </Link>
               </div>
-              <div className="flex items-center">
-                <div className="flex items-center mx-4">{customerName}</div>
-
-                <Link
-                  to="/"
-                  className="flex items-center text-gray-600 hover:text-blue-600"
-                >
-                  <LogOut className="h-5 w-5" />
-                  <span className="ml-2">Sign Out</span>
-                </Link>
-              </div>
+              {customerId && (
+                <div className="flex items-center">{UserButton()}</div>
+              )}
             </div>
           </div>
         </nav>

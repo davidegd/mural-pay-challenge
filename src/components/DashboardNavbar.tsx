@@ -23,11 +23,6 @@ export const DashboardNavbar = () => {
       path: `${AppRoutes.dashboard}${AppRoutes.transactions}`,
       icon: SwitchCamera,
     },
-    {
-      name: "Profile",
-      path: `${AppRoutes.dashboard}${AppRoutes.profile}`,
-      icon: User,
-    },
   ];
   return (
     <div className="bg-background border-t border-gray-200">

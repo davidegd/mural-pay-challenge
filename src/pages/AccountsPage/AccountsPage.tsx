@@ -79,6 +79,7 @@ const AccountsPage = () => {
         {Array.isArray(accounts) && accounts.length ? (
           accounts.map((account) => (
             <div
+              key={account.id}
               role="button"
               onClick={() => handleClickAccountDetails(account)}
             >

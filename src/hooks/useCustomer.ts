@@ -14,10 +14,8 @@ export const useCustomer = (dispatch: (action: ActionType) => void) => {
 
     try {
       const customer = await createCustomer(customerData);
-      console.log("Customer created:", customer);
 
       const kycLinkResponse = await getKYCLink(customer.id);
-      console.log("KYC Link:", kycLinkResponse.kycLink);
 
       localStorage.setItem("customerId", customer.id);
 

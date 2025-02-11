@@ -1,12 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-// https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {},
   server: {
     port: 3000,
+    strictPort: true,
+    watch: {
+      usePolling: true,
+      interval: 100,
+    },
   },
   resolve: {
     alias: {
@@ -21,4 +25,27 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
+  optimizeDeps: {
+    include: ["react", "react-dom", "react-router-dom"],
+    exclude: ["@vitejs/plugin-react"],
+  },
+  build: {
+    target: "esnext",
+    sourcemap: false,
+    minify: "esbuild",
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return id.split("node_modules/")[1].split("/")[0];
+          }
+        },
+      },
+    },
+  },
+  define: {
+    "process.env": process.env,
+  },
+  envDir: "./",
 });

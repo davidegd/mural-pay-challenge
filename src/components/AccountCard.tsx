@@ -12,7 +12,10 @@ export const AccountCard: React.FC<AccountCardProps> = ({
   account,
 }: AccountCardProps) => {
   return (
-    <Card shadow="none" className="py-3 px-4 mb-3 border border-neutral-100">
+    <Card
+      shadow="none"
+      className="py-3 px-4 mb-3 border border-neutral-100 hover:bg-indigo-50"
+    >
       <div className="flex justify-between">
         <h4 className="text-lg font-semibold text-black">{account?.name}</h4>
         <div className="flex items-end ">
