@@ -29,15 +29,20 @@ export enum TransferFormStepsEnum {
 }
 
 export enum TransferStatusEnum {
-  Pending = "Pending",
-  Requested = "Requested",
-  Executed = "Executed",
-  Failed = "Failed",
+  Pending = "PENDING",
+  Failed = "FAILED",
+  Executed = "EXECUTED",
+  InReview = "IN_REVIEW",
+  Cancelled = "CANCELLED",
 }
 
 export const TransferSteps = [
   { label: TransferFormStepsEnum.Amount, value: 0, text: "Payout account" },
-  { label: TransferFormStepsEnum.BankDetails, value: 1, text: "Bank details" },
+  {
+    label: TransferFormStepsEnum.BankDetails,
+    value: 1,
+    text: "Recipient details",
+  },
   { label: TransferFormStepsEnum.Review, value: 2, text: "Resume" },
   {
     label: TransferFormStepsEnum.Requested,
@@ -47,6 +52,6 @@ export const TransferSteps = [
   {
     label: TransferFormStepsEnum.Executed,
     value: 4,
-    text: "Transaction executed",
+    text: "Execution",
   },
 ];

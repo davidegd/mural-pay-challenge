@@ -1,4 +1,4 @@
-import { TransferStatusEnum } from "@/constants/common";
+import { TransferStatusEnum } from "../constants/common";
 import {
   createTransactionRequest,
   executeTransactionRequested,
@@ -16,11 +16,11 @@ export const useTransactions = (dispatch: (action: ActionType) => void) => {
   const [transactionStatus, setTransactionStatus] =
     useState<TransferStatusEnum | null>(null);
 
-  const getTransactions = async (accountId: string, status: string) => {
+  const getTransactions = async (status: string[], limit?: number) => {
     setLoadingTransactions(true);
 
     try {
-      const transactions = await getCustomerTransactions(accountId, status);
+      const transactions = await getCustomerTransactions(status, limit);
       dispatch(setTransactionsDataAction(transactions));
     } catch (error) {
       console.error("Error:", error);
@@ -34,20 +34,9 @@ export const useTransactions = (dispatch: (action: ActionType) => void) => {
   const createTransaction = async (
     transactionData
   ): Promise<{ id: string }> => {
-    const data = {
-      payoutAccountId: transactionData.payoutAccountId,
-      recipientsInfo: [
-        {
-          ...transactionData,
-          recipientType: "BUSINESS",
-          recipientTransferType: "FIAT",
-          currencyCode: transactionData.bankDetails.currencyCode,
-        },
-      ],
-    };
     setTransactionStatus(TransferStatusEnum.Pending);
     try {
-      const response = await createTransactionRequest(data);
+      const response = await createTransactionRequest(transactionData);
       if (response) {
         setTransactionStatus(null);
       }
@@ -62,7 +51,7 @@ export const useTransactions = (dispatch: (action: ActionType) => void) => {
 
   const executeTransaction = async (transferRequestId: string) => {
     setTransactionStatus(TransferStatusEnum.Pending);
-
+    setLoadingTransactions(true);
     try {
       const response = await executeTransactionRequested(transferRequestId);
       if (response) {
@@ -74,6 +63,8 @@ export const useTransactions = (dispatch: (action: ActionType) => void) => {
       setTransactionStatus(TransferStatusEnum.Failed);
       setErrorTransactions("Failed to execute transaction. Please try again.");
       throw error;
+    } finally {
+      setLoadingTransactions(false);
     }
   };
 
@@ -85,5 +76,6 @@ export const useTransactions = (dispatch: (action: ActionType) => void) => {
     transactionStatus,
     setTransactionStatus,
     executeTransaction,
+    setErrorTransactions,
   };
 };

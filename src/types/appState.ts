@@ -5,4 +5,5 @@ export interface AppState {
   customerName?: string;
   accounts?: Account[];
   transactions?: unknown[];
+  customerData: unknown;
 }

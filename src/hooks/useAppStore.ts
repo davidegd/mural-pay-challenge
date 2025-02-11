@@ -1,6 +1,6 @@
 import { combinedReducers } from "@/store/reducers";
 import { useImmerReducer } from "use-immer";
-import { useCustomer } from "./useAuth";
+import { useCustomer } from "./useCustomer";
 import { useAccounts } from "./useAccounts";
 import { useTransactions } from "./useTransactions";
 

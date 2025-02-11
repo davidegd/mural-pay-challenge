@@ -8,7 +8,7 @@ import { TransferFormStepsEnum, TransferStatusEnum } from "@/constants/common";
 import { Button } from "@heroui/button";
 import { TriangleAlert } from "lucide-react";
 import { TransactionStepper } from "@/components/TransferStepper";
-export function TransferPage() {
+const TransferPage = () => {
   const {
     state: { accounts, customerId },
   } = useAppContext();
@@ -49,7 +49,7 @@ export function TransferPage() {
   }
   const TransactionStatus = {
     [TransferStatusEnum.Pending]: (
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center" role="title">
         <Spinner
           size="lg"
           label="Processing transaction..."
@@ -61,8 +61,10 @@ export function TransferPage() {
       <div className="flex flex-col items-center justify-center space-y-6 ">
         <div className="flex flex-col items-center text-lg text-pink-600 text-center">
           <TriangleAlert size={72} />
-          <h2 className="font-semibold">Transaction failed</h2>
-          <p>Failed to create transaction. Please try again.</p>
+          <h2 className="font-semibold" role="title">
+            Transaction failed
+          </h2>
+          <p>Failed to create transaction. Please try again later.</p>
         </div>
         <Button
           size="lg"
@@ -104,4 +106,6 @@ export function TransferPage() {
       </div>
     </div>
   );
-}
+};
+
+export default TransferPage;

@@ -1,3 +1,4 @@
+import { CreatedTransactionResponse } from "@/types/api";
 import { api } from "./api";
 import { API_KEY, TRANSFER_API_KEY } from "@/constants/api";
 
@@ -11,7 +12,9 @@ const transferPost = async (url: string, data?: unknown) => {
   });
 };
 
-export const createTransactionRequest = async (data) => {
+export const createTransactionRequest = async (
+  data
+): Promise<CreatedTransactionResponse> => {
   const response = await transferPost("/transfer-requests", data);
   return response.data;
 };
@@ -26,13 +29,12 @@ export const executeTransactionRequested = async (
 };
 
 export const getCustomerTransactions = async (
-  accountId: string,
-  status: string
+  status: string[],
+  limit: number = 10
 ) => {
   const response = await api.get(`/transfer-requests`, {
     params: {
-      limit: 10,
-      nextId: accountId,
+      limit,
       status,
     },
   });

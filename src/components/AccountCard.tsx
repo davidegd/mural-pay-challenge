@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Account } from "../types/api";
 import { Button, Card } from "@heroui/react";
-import { formatAmount } from "@/utils/formatter";
+import { formatAmount, handleCopy } from "@/utils/formatter";
 import { CopyIcon, Wallet } from "lucide-react";
 
 interface AccountCardProps {
@@ -11,9 +11,6 @@ interface AccountCardProps {
 export const AccountCard: React.FC<AccountCardProps> = ({
   account,
 }: AccountCardProps) => {
-  const handleCopy = (text) => {
-    navigator.clipboard.writeText(text);
-  };
   return (
     <Card shadow="none" className="py-3 px-4 mb-3 border border-neutral-100">
       <div className="flex justify-between">

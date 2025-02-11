@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
-import { AccountDetails, AccountsWidget } from "@/components/AccountsWidget";
-import { TransferForm } from "@/components/TransferForm";
-import { TransferList } from "@/components/TransferList";
-import { getAccount, getTransfers } from "@/services/api";
-import type { Account, TransferRequest } from "@/types/api";
-import { useCustomer } from "@/hooks/useAuth";
+import React, { useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { AccountsWidget } from "@/components/AccountsWidget";
+import { useCustomer } from "@/hooks/useCustomer";
 import { useAppContext } from "@/hooks/useAppContext";
 import { Spinner } from "@heroui/spinner";
 import { AddAccountWidget } from "@/components/AddAccountWidget";
 import { CreateTransactionWidget } from "@/components/CreateTransactionWidget";
 import { useAccounts } from "@/hooks/useAccounts";
-export function DashboardPage() {
+import { useTransactions } from "@/hooks/useTransactions";
+import { TransferStatusEnum } from "@/constants/common";
+import { TransactionsWidget } from "@/components/TransactionsWidget";
+
+const DashboardPage = () => {
   const customerId = localStorage.getItem("customerId");
   const {
-    state: { customerName, accounts },
+    state: { customerName, accounts, transactions },
     dispatch,
   } = useAppContext();
-  const [transfers, setTransfers] = useState<TransferRequest[]>([]);
 
   const { getCustomerData, loading, error } = useCustomer(dispatch);
   const { getCustomerAccounts } = useAccounts(dispatch);
+  const { getTransactions, loadingTransactions } = useTransactions(dispatch);
 
   useEffect(() => {
     if (customerId) {
       getCustomerData(customerId);
       getCustomerAccounts(customerId);
+      getTransactions(
+        [TransferStatusEnum.InReview, TransferStatusEnum.Pending],
+        5
+      );
     }
   }, [customerId, customerName]);
 
@@ -36,15 +40,15 @@ export function DashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen  flex flex-col space-y-4 items-center justify-center p-4">
-        <Spinner size="lg" />
-        <div className="text-lg text-gray-600">Loading account data</div>
+        <Spinner size="lg" color="primary" />
+        <h2 className="text-primary text-lg">Loading account data</h2>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <div className="bg-background rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full">
           <h2 className="text-xl font-semibold text-red-600 mb-4">Error</h2>
           <p className="text-gray-600">{error}</p>
@@ -60,19 +64,24 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen  flex py-4 sm:py-6">
+    <div className="min-h-screen  flex py-4 sm:py-10">
       <div className="w-full max-w-6xl space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-7">
           <div className="col-span-2">
             <AccountsWidget accounts={accounts || []} />
           </div>
           <div className="flex flex-col  gap-4">
             <CreateTransactionWidget />
-            <AddAccountWidget onAddAccount={() => {}} />
+            <AddAccountWidget />
           </div>
         </div>
-        <TransferList transfers={transfers} onTransferExecuted={() => {}} />
+        <TransactionsWidget
+          loadingTransactions={loadingTransactions}
+          transactions={transactions}
+        />
       </div>
     </div>
   );
-}
+};
+
+export default DashboardPage;

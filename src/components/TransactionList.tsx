@@ -1,59 +1,134 @@
 import React from "react";
-import { SearchBar } from "./SearchBar";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Pagination,
+  Spinner,
+  Button,
+  Chip,
+} from "@heroui/react";
+import { formatAmount, formatDate } from "@/utils/formatter";
+import { TransferStatusEnum } from "@/constants/common";
+import { Transaction } from "@/types/common";
 
-interface Transaction {
-  date: string;
-  from: string;
-  to: string;
-  tags: string;
-  amount: string;
+interface TransactionsListProps {
+  transactions: { total: number; results: Transaction[] };
+  isLoading?: boolean;
+  executeTransaction?: (transactionId: string) => void;
+  isWidget?: boolean;
 }
 
-interface TransactionListProps {
-  transactions: Transaction[];
-}
-
-export const TransactionList: React.FC<TransactionListProps> = ({
+const TransactionsList: React.FC<TransactionsListProps> = ({
   transactions,
+  isLoading,
+  executeTransaction,
+  isWidget = false,
 }) => {
-  const handleSearch = (query: string) => {
-    console.log("Searching for:", query);
+  const [page, setPage] = React.useState(1);
+  const [pageSize] = React.useState(10);
+
+  const pages = React.useMemo(() => {
+    return transactions?.total ? Math.ceil(transactions?.total / pageSize) : 0;
+  }, [transactions?.total, pageSize]);
+
+  const items = React.useMemo(() => {
+    if (!transactions) return [];
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+
+    return transactions.results.slice(start, end);
+  }, [page, transactions]);
+
+  const StatusBadge = (status: string) => {
+    const statusColor = {
+      [TransferStatusEnum.Pending]: "success",
+      [TransferStatusEnum.Failed]: "danger",
+      [TransferStatusEnum.Executed]: "success",
+      [TransferStatusEnum.InReview]: "warning",
+      [TransferStatusEnum.Cancelled]: "danger",
+    };
+
+    const statusLabel = {
+      [TransferStatusEnum.Pending]: "Pending",
+      [TransferStatusEnum.Failed]: "Failed",
+      [TransferStatusEnum.Executed]: "Executed",
+      [TransferStatusEnum.InReview]: "In Review",
+      [TransferStatusEnum.Cancelled]: "Cancelled",
+    };
+
+    return (
+      <Chip
+        color={statusColor[status]}
+        className={` badge-${statusColor[status]} rounded-full`}
+      >
+        {statusLabel[status]}
+      </Chip>
+    );
   };
-
   return (
-    <div className="bg-background rounded-lg shadow-sm p-4 sm:p-6">
-      <div className="flex w-full justify-end items-center mb-4">
-        <SearchBar onSearch={handleSearch} />
-      </div>
-
-      <div className="space-y-4">
+    <Table
+      aria-label="Transactions Table"
+      bottomContent={
+        pages > 0 && !isWidget ? (
+          <div className="flex w-full justify-center">
+            <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="primary"
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
+          </div>
+        ) : null
+      }
+    >
+      <TableHeader>
+        <TableColumn>Date</TableColumn>
+        <TableColumn>Currency</TableColumn>
+        <TableColumn>Amount</TableColumn>
+        <TableColumn>Status</TableColumn>
+        <TableColumn>{""}</TableColumn>
+      </TableHeader>
+      <TableBody isLoading={isLoading} loadingContent={<Spinner />}>
         {transactions &&
-          transactions.length &&
-          transactions.map((transaction, index) => (
-            <div
-              key={index}
-              className={` pb-4 ${
-                index < transactions.length - 1 && "border-b border-gray-200"
-              }`}
-            >
-              <p className="text-gray-600 text-sm">{transaction.date}</p>
-              <div className="flex justify-between items-center mt-2">
-                <div>
-                  <p className="text-gray-800 font-medium">
-                    {transaction.from}
-                  </p>
-                  <p className="text-gray-500 text-sm">{transaction.to}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-gray-800 font-medium">
-                    {transaction.amount}
-                  </p>
-                  <p className="text-gray-500 text-sm">{transaction.tags}</p>
-                </div>
-              </div>
-            </div>
+          Array.isArray(transactions?.results) &&
+          transactions.results.length &&
+          items.map((transaction) => (
+            <TableRow key={transaction.id}>
+              <TableCell>{formatDate(transaction.createdAt)}</TableCell>
+              <TableCell>
+                {transaction.recipientsInfo[0].fiatDetails.currencyCode}
+              </TableCell>
+              <TableCell>
+                {formatAmount(transaction.recipientsInfo[0].tokenAmount)}
+              </TableCell>
+
+              <TableCell>{StatusBadge(transaction.status)}</TableCell>
+              <TableCell>
+                {transaction.status === TransferStatusEnum.InReview &&
+                !isWidget ? (
+                  <Button
+                    isDisabled={isLoading}
+                    size="sm"
+                    variant="light"
+                    color="primary"
+                    onPress={() => executeTransaction(transaction.id)}
+                  >
+                    Execute transaction
+                  </Button>
+                ) : null}
+              </TableCell>
+            </TableRow>
           ))}
-      </div>
-    </div>
+      </TableBody>
+    </Table>
   );
 };
+
+export default TransactionsList;

@@ -2,18 +2,21 @@ import { useState } from "react";
 import { Input, Button } from "@heroui/react";
 import { Card, CardBody } from "@heroui/card";
 import { ArrowRight } from "lucide-react";
-import { useCustomer } from "@/hooks/useAuth";
+import { useAppContext } from "@/hooks/useAppContext";
+import { useCustomer } from "@/hooks/useCustomer";
 
 interface Props {
   onCustomerCreated: (customerId: string | null) => void;
 }
 
 const CreateCustomer = ({ onCustomerCreated }: Props) => {
-  const { createNewCustomer, loading, error } = useCustomer();
+  const { dispatch } = useAppContext();
   const [formData, setFormData] = useState({
     name: "",
     organizationType: "BUSINESS",
   });
+
+  const { createNewCustomer, loading } = useCustomer(dispatch);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

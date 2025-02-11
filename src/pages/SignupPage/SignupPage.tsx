@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomerRegistration from "@/components/CustomerRegistration";
+import { useAppContext } from "@/hooks/useAppContext";
 
-export function RegisterPage() {
+const SignupPage: React.FC = () => {
   const navigate = useNavigate();
+  const {
+    state: { customerId },
+  } = useAppContext();
 
-  const handleCustomerCreated = (customerId?: string) => {
+  useEffect(() => {
+    if (customerId) {
+      navigate(`/dashboard`);
+    }
+  }, [customerId]);
+
+  const handleCustomerCreated = () => {
     navigate(`/dashboard`);
   };
 
@@ -14,30 +24,19 @@ export function RegisterPage() {
       <div className="w-full max-w-md sm:max-w-2xl bg-background rounded-lg shadow-2xl overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 sm:p-8 text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            Crea tu Cuenta
+            Sign Up
           </h1>
           <p className="text-white opacity-90 text-sm sm:text-base">
-            Regístrate en Mural Pay y comienza a disfrutar de pagos rápidos y
-            seguros.
+            Sign up for Mural Pay and start enjoying fast and secure payments.
           </p>
         </div>
 
         <div className="p-4 sm:p-8">
           <CustomerRegistration onCustomerCreated={handleCustomerCreated} />
         </div>
-
-        <div className="bg-gray-50 p-4 sm:p-6 text-center border-t border-gray-200">
-          <p className="text-gray-600 text-sm sm:text-base">
-            ¿Ya tienes una cuenta?{" "}
-            <a
-              href="/login"
-              className="text-blue-600 hover:text-blue-500 font-semibold transition-colors"
-            >
-              Inicia sesión aquí
-            </a>
-          </p>
-        </div>
       </div>
     </div>
   );
-}
+};
+
+export default SignupPage;

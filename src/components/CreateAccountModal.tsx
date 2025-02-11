@@ -42,7 +42,7 @@ export const CreateAccountModal = ({
   }, [successCreation]);
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalContent>
         <ModalHeader>Create Account</ModalHeader>
         <ModalBody className="mb-6">

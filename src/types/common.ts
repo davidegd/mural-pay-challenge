@@ -9,3 +9,16 @@ export interface FormStepProps {
   watch: () => void;
   isValid: boolean;
 }
+
+export interface Transaction {
+  id: string;
+  createdAt: string;
+  recipientsInfo: {
+    id: string;
+    tokenAmount: number;
+    fiatDetails: {
+      currencyCode: string;
+    };
+  }[];
+  status: string;
+}

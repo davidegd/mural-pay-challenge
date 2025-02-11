@@ -7,6 +7,8 @@ import { ReviewForm } from "./ReviewForm";
 import { useForm } from "react-hook-form";
 import { Check, CheckCheck } from "lucide-react";
 import { Button } from "@heroui/button";
+import { TransferRequested } from "./TransferRequested";
+import { TransferExecuted } from "./TransferExecuted";
 
 interface Props {
   accounts: Account[];
@@ -49,14 +51,30 @@ export function TransferForm({
 
   watch();
 
-  const handleCreateTransaction = useCallback(
-    async (transferData) => {
-      const response = await createTransaction(transferData);
-      setTransferRequestId(response?.id);
-    },
-    [createTransaction, register, setValue]
-  );
+  const handleCreateTransaction = async (transactionData) => {
+    const data = {
+      payoutAccountId: transactionData.payoutAccountId,
+      recipientsInfo: [
+        {
+          ...transactionData,
+          recipientType: "BUSINESS",
+          recipientTransferType: "FIAT",
+          currencyCode: transactionData.bankDetails.currencyCode,
+        },
+      ],
+    };
+    try {
+      const response = await createTransaction(data);
 
+      setTransferRequestId(response.id);
+      console.log("RRRRR", response);
+    } catch (error) {
+      console.error("Error:", error);
+      setTransactionStatus(TransferStatusEnum.Failed);
+    }
+    return;
+  };
+  console.log(transferRequestId);
   const TransferStepsComponents = {
     [TransferFormStepsEnum.Amount]: (
       <TransferAmountForm
@@ -83,46 +101,20 @@ export function TransferForm({
       />
     ),
     [TransferFormStepsEnum.Requested]: (
-      <div className="flex flex-col items-center justify-between space-y-6 ">
-        <div className="flex flex-col items-center text-lg text-primary text-center">
-          <Check size={72} />
-          <h2 className="font-semibold">Transaction requested successfully</h2>
-        </div>
-        <div>
-          <p className="mb-4 font-bold">
-            You need to execute the transaction to complete the process
-          </p>
-
-          <Button
-            size="lg"
-            color="primary"
-            radius="md"
-            onPress={() => {
-              handleExecuteTransaction(transferRequestId);
-            }}
-            className="w-full text-white my-4"
-          >
-            Execute transaction
-          </Button>
-        </div>
-      </div>
+      <TransferRequested
+        transferRequestId={transferRequestId}
+        handleExecuteTransaction={handleExecuteTransaction}
+        setTransactionStatus={setTransactionStatus}
+        setTransferStep={setTransferStep}
+      />
     ),
     [TransferFormStepsEnum.Executed]: (
-      <div className="flex flex-col items-center justify-center space-y-6 ">
-        <div className="flex flex-col items-center text-lg text-success text-center">
-          <CheckCheck size={72} />
-          <h2 className="font-semibold">Transaction executed successfully</h2>
-        </div>
-        <Button
-          size="lg"
-          color="success"
-          radius="md"
-          onPress={() => setTransactionStatus(null)}
-          className="w-full text-white my-4"
-        >
-          Done
-        </Button>
-      </div>
+      <TransferExecuted
+        onContinue={() => {
+          setTransactionStatus(null);
+          setTransferStep(TransferFormStepsEnum.Amount);
+        }}
+      />
     ),
   };
 

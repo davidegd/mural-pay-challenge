@@ -1,3 +1,4 @@
+import { AppRoutes } from "@/constants/routes";
 import { Button } from "@heroui/button";
 import { SwitchCameraIcon } from "lucide-react";
 import React from "react";
@@ -7,14 +8,14 @@ export const CreateTransactionWidget: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCreateTransaction = () => {
-    navigate("/create-transaction"); // Redirige a la pantalla de creación de transacciones
+    navigate(`${AppRoutes.dashboard}${AppRoutes.transfer}`);
   };
 
   return (
     <div
       role="button"
       onClick={handleCreateTransaction}
-      className="bg-gradient-to-r flex justify-between items-center to-blue-600 from-purple-600 rounded shadow-lg p-6 text-white"
+      className="bg-gradient-to-r flex justify-between items-center to-blue-600 from-purple-600 rounded shadow-sm p-5 text-white"
     >
       <div>
         <h2 className="text-xl font-semibold mb-4">Make a Transaction</h2>

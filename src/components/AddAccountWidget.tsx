@@ -1,6 +1,6 @@
-// src/components/AddAccountWidget.tsx
+import { AppRoutes } from "@/constants/routes";
 import { Button } from "@heroui/react";
-import { PlusCircle, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,14 +8,16 @@ export const AddAccountWidget: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAddAccount = () => {
-    navigate("/add-account"); // Redirige a la pantalla de agregar cuenta
+    navigate(`${AppRoutes.dashboard}${AppRoutes.accounts}`, {
+      state: { openCreateAccount: true },
+    });
   };
 
   return (
     <div
       role="button"
       onClick={handleAddAccount}
-      className="bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-between rounded shadow-md p-6 text-white"
+      className="bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-between rounded shadow-sm p-5 text-white"
     >
       <div>
         {" "}

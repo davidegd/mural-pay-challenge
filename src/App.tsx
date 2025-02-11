@@ -1,20 +1,20 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
-import { RegisterPage } from "@/pages/RegisterPage";
+import { SignupPage } from "@/pages/SignupPage";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { TransferPage } from "@/pages/TransferPage";
 import { ProfilePage } from "@/pages/ProfilePage";
 import { TransactionsPage } from "@/pages/TransactionsPage";
 import { AppRoutes } from "@/constants/routes";
-import { AccountsPage } from "./pages/AccountsPage";
+import { AccountsPage } from "@/pages/AccountsPage";
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<RegisterPage />} />
+          <Route path="/" element={<SignupPage />} />
           <Route path={AppRoutes.dashboard} element={<DashboardPage />} />
           <Route
             path={`${AppRoutes.dashboard}${AppRoutes.transfer}`}
