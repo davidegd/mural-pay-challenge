@@ -12,10 +12,10 @@ export const AccountTypes = [
 ];
 
 export const ColombiaDocumentTypes = [
-  { name: "C.C", value: "CC" },
-  { name: "C.E", value: "CE" },
-  { name: "NIT", value: "NIT" },
-  { name: "Passport", value: "PASSPORT" },
+  { name: "C.C", code: "CC" },
+  { name: "C.E", code: "CE" },
+  { name: "NIT", code: "NIT" },
+  { name: "Passport", code: "PASSPORT" },
 ];
 
 export const CountriesList = getData();

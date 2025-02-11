@@ -39,6 +39,7 @@ export const TransferRequested: React.FC<TransferRequestedProps> = ({
               setTransactionStatus(null);
             }}
             className="w-full  my-4"
+            aria-label="Back"
           >
             Do it later
           </Button>
@@ -50,6 +51,7 @@ export const TransferRequested: React.FC<TransferRequestedProps> = ({
               handleExecuteTransaction(transferRequestId);
             }}
             className="w-full text-white my-4"
+            aria-label="Next"
           >
             Execute transaction
           </Button>

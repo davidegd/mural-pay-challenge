@@ -1,3 +1,4 @@
+import { AccountTypes } from "@/constants/common";
 import { UseFormRegister, FieldValues } from "react-hook-form";
 
 export interface FormStepProps {
@@ -21,4 +22,13 @@ export interface Transaction {
     };
   }[];
   status: string;
+}
+
+export interface FormField {
+  name: string;
+  label: string;
+  placeholder?: string;
+  type?: "input" | "select";
+  required?: boolean;
+  items?: { code: string; name: string }[];
 }

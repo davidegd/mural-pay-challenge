@@ -24,6 +24,7 @@ export const TransferExecuted: React.FC<TransferExecutedProps> = ({
         radius="md"
         onPress={onContinue}
         className="w-5/6 text-white my-4"
+        aria-label="Next"
       >
         Done
       </Button>

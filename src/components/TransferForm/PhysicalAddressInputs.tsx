@@ -21,6 +21,7 @@ export const PhysicalAddressInputs = ({ register, setValue, watch }) => {
           required: "Country is required",
         })}
         isRequired
+        aria-label="Country"
       >
         {CountriesList &&
           CountriesList.map((country) => (
@@ -46,6 +47,7 @@ export const PhysicalAddressInputs = ({ register, setValue, watch }) => {
           onChange={(e) =>
             setValue("bankDetails.physicalAddress.address1", e.target.value)
           }
+          aria-label="Address 1"
         />
         <Input
           label="Address 2 "
@@ -56,6 +58,7 @@ export const PhysicalAddressInputs = ({ register, setValue, watch }) => {
           onChange={(e) =>
             setValue("bankDetails.physicalAddress.address2", e.target.value)
           }
+          aria-label="Address 2"
         />
       </div>
       <div className="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-2 ">
@@ -69,6 +72,7 @@ export const PhysicalAddressInputs = ({ register, setValue, watch }) => {
           onChange={(e) =>
             setValue("bankDetails.physicalAddress.state", e.target.value)
           }
+          aria-label="State"
         />
         <Input
           label="City"
@@ -80,6 +84,7 @@ export const PhysicalAddressInputs = ({ register, setValue, watch }) => {
           onChange={(e) =>
             setValue("bankDetails.physicalAddress.city", e.target.value)
           }
+          aria-label="City"
         />
         <Input
           label="Zip Code"
@@ -91,6 +96,7 @@ export const PhysicalAddressInputs = ({ register, setValue, watch }) => {
           onChange={(e) =>
             setValue("bankDetails.physicalAddress.zip", e.target.value)
           }
+          aria-label="Zip Code"
         />
       </div>
     </div>

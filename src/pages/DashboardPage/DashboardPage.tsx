@@ -39,9 +39,13 @@ const DashboardPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen  flex flex-col space-y-4 items-center justify-center p-4">
+      <div
+        className="min-h-screen flex flex-col space-y-4 items-center justify-center p-4"
+        role="status"
+        aria-live="polite"
+      >
         <Spinner size="lg" color="primary" />
-        <h2 className="text-primary text-lg">Loading account data</h2>
+        <h2 className="text-primary text-lg">Loading account data...</h2>
       </div>
     );
   }
@@ -49,12 +53,16 @@ const DashboardPage = () => {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="bg-background rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full">
+        <div
+          className="bg-background rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full"
+          role="alert"
+          aria-live="assertive"
+        >
           <h2 className="text-xl font-semibold text-red-600 mb-4">Error</h2>
           <p className="text-gray-600">{error}</p>
           <button
             onClick={() => getCustomerData(customerId)}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 w-full sm:w-auto"
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Retry
           </button>

@@ -1,5 +1,5 @@
 import { CreatedTransactionResponse } from "@/types/api";
-import { api } from "./api";
+import { api, clearCache } from "./api";
 import { API_KEY, TRANSFER_API_KEY } from "@/constants/api";
 
 const transferPost = async (url: string, data?: unknown) => {
@@ -30,8 +30,9 @@ export const executeTransactionRequested = async (
 
 export const getCustomerTransactions = async (
   status: string[],
-  limit: number = 10
+  limit: number = 20
 ) => {
+  clearCache("/transfer-requests");
   const response = await api.get(`/transfer-requests`, {
     params: {
       limit,

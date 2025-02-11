@@ -1,79 +1,84 @@
 import React from "react";
 import { Input, Select, SelectItem } from "@heroui/react";
 import { AccountTypes, ColombiaDocumentTypes } from "@/constants/common";
-import { FormStepProps } from "@/types/common";
+import { FormField, FormStepProps } from "@/types/common";
 
-export const CopInputs: React.FC<FormStepProps> = ({
-  register,
-  setValue,
-  getValues,
-  watch,
-}) => {
-  watch();
+const formFields: FormField[] = [
+  {
+    name: "bankDetails.accountType",
+    label: "Account Type",
+    type: "select",
+    required: true,
+    items: AccountTypes,
+  },
+  {
+    name: "bankDetails.bankAccountNumber",
+    label: "Account Number",
+    placeholder: "0011223344",
+    type: "input",
+    required: true,
+  },
+  {
+    name: "bankDetails.documentType",
+    label: "Document Type",
+    type: "select",
+    required: true,
+    items: ColombiaDocumentTypes,
+  },
+  {
+    name: "bankDetails.documentNumber",
+    label: "Document Number",
+    placeholder: "123456789",
+    type: "input",
+    required: true,
+  },
+];
+
+export const CopInputs: React.FC<FormStepProps> = ({ register, setValue }) => {
+  const renderField = (field: FormField) => {
+    const { name, label, placeholder, type, required, items } = field;
+
+    if (type === "select") {
+      return (
+        <Select
+          isRequired={required}
+          label={label}
+          aria-label={label}
+          aria-describedby={`${name}-error`}
+          {...register(name, { required })}
+          items={items}
+        >
+          {(item) => (
+            <SelectItem
+              value={item.code || item.name}
+              key={item.code || item.name}
+              onChange={() => setValue(name, item.code || item.name)}
+            >
+              {item.name}
+            </SelectItem>
+          )}
+        </Select>
+      );
+    }
+
+    return (
+      <Input
+        isRequired={required}
+        label={label}
+        placeholder={placeholder}
+        aria-label={label}
+        aria-describedby={`${name}-error`}
+        {...register(name, { required })}
+        onChange={(e) => setValue(name, e.target.value)}
+      />
+    );
+  };
+
   return (
-    <form className="space-y-4">
-      <Select
-        isRequired
-        label="Account Type"
-        {...register(`bankDetails.accountType`, {
-          required: true,
-        })}
-        items={AccountTypes}
-      >
-        {(item) => (
-          <SelectItem
-            value={item.code}
-            onChange={() => setValue("bankDetails.accountType", item.code)}
-          >
-            {item.name}
-          </SelectItem>
-        )}
-      </Select>
-
-      <Input
-        isRequired
-        {...register(`bankDetails.bankAccountNumber`, {
-          required: true,
-        })}
-        label="Account Number"
-        onChange={() =>
-          setValue(
-            "bankDetails.bankAccountNumber",
-            getValues("bankDetails.bankAccountNumber")
-          )
-        }
-        placeholder="0011223344"
-      />
-      <Select
-        isRequired
-        label="Document Type"
-        {...register(`bankDetails.documentType`, {
-          required: true,
-        })}
-      >
-        {ColombiaDocumentTypes.map((type) => (
-          <SelectItem
-            value={type.value}
-            onChange={() => setValue("bankDetails.documentType", type.value)}
-          >
-            {type.name}
-          </SelectItem>
-        ))}
-      </Select>
-      <Input
-        isRequired
-        {...register(`bankDetails.documentNumber`, {
-          required: true,
-        })}
-        label="Document Number"
-        onChange={() =>
-          setValue(
-            "bankDetails.documentNumber",
-            getValues("bankDetails.documentNumber")
-          )
-        }
-        placeholder="123456789"
-      />
-    </form>
+    <>
+      {formFields.map((field) => (
+        <div key={field.name}>{renderField(field)}</div>
+      ))}
+    </>
   );
 };

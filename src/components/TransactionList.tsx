@@ -29,7 +29,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   isWidget = false,
 }) => {
   const [page, setPage] = React.useState(1);
-  const [pageSize] = React.useState(10);
+  const [pageSize] = React.useState(20);
 
   const pages = React.useMemo(() => {
     return transactions?.total ? Math.ceil(transactions?.total / pageSize) : 0;
@@ -69,6 +69,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
       </Chip>
     );
   };
+  console.log(items);
   return (
     <Table
       aria-label="Transactions Table"

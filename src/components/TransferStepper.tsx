@@ -6,8 +6,8 @@ export const TransactionStepper = ({ currentStep }) => {
   const step =
     TransferSteps.find((step) => step.label === currentStep)?.value * 25;
   return (
-    <div className="mb-4 w-1/2">
-      <Slider value={step} aria-labelledby="transaction-steps" />
+    <div className="mb-4 w-full sm:w-1/2">
+      <Slider value={step} aria-labelledby="transaction-steps" size="sm" />
       <div className="flex justify-between text-sm mt-2">
         {TransferSteps.map((step, index) => (
           <span

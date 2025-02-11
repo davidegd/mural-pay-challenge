@@ -39,6 +39,8 @@ export const TransferAmountForm: React.FC<TransferAmountFormProps> = ({
         size="lg"
         variant="flat"
         isRequired
+        aria-label="Select payout Account"
+        aria-describedby="payoutAccountId-error"
       >
         {Array.isArray(accounts) &&
           accounts.length &&
@@ -50,7 +52,7 @@ export const TransferAmountForm: React.FC<TransferAmountFormProps> = ({
                 setValue("payoutAccountId", account?.id);
               }}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center w-full flex-wrap">
                 <div className="flex flex-col ">
                   <p>{account.name}</p>
                   <p>{account.address}</p>
@@ -79,6 +81,8 @@ export const TransferAmountForm: React.FC<TransferAmountFormProps> = ({
         max={maxAmount}
         maxLength={maxAmount?.toString()?.length}
         isDisabled={!getValues("payoutAccountId")}
+        aria-label="Amount to send"
+        aria-describedby="tokenAmount-error"
       />
 
       <div className="flex justify-end pt-6">
@@ -90,6 +94,7 @@ export const TransferAmountForm: React.FC<TransferAmountFormProps> = ({
           onPress={onContinue}
           endContent={<ArrowRight />}
           isDisabled={!isValid}
+          aria-label="Next"
         >
           Next
         </Button>

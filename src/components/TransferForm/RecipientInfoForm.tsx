@@ -59,7 +59,7 @@ export const RecipientInfoForm: React.FC<FormStepProps> = ({
           })}
           label="Currency"
           isRequired
-          value={getValues("currencyCode")}
+          aria-label="Currency"
         >
           {Currencies.map((currency) => (
             <SelectItem
@@ -80,6 +80,7 @@ export const RecipientInfoForm: React.FC<FormStepProps> = ({
             })}
             label="Bank Name"
             isRequired
+            aria-label="Bank Name"
           />
         )}
         {InputsByCurrency({ register, setValue, getValues, watch })}
@@ -99,6 +100,7 @@ export const RecipientInfoForm: React.FC<FormStepProps> = ({
           variant="light"
           color="secondary"
           className="w-full"
+          aria-label="Back"
         >
           Back
         </Button>
@@ -110,6 +112,7 @@ export const RecipientInfoForm: React.FC<FormStepProps> = ({
           className="w-full"
           endContent={<ArrowRight />}
           isDisabled={!isValid}
+          aria-label="Next"
         >
           Next
         </Button>
