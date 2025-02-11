@@ -1,35 +1,35 @@
-import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
-import DashboardPage from "./DashboardPage";
-import { useCustomer } from "@/hooks/useCustomer";
-import { useAppContext } from "@/hooks/useAppContext";
-import { useAccounts } from "@/hooks/useAccounts";
-import { vi, Mock } from "vitest";
+import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import DashboardPage from './DashboardPage';
+import { useCustomer } from '@/hooks/useCustomer';
+import { useAppContext } from '@/hooks/useAppContext';
+import { useAccounts } from '@/hooks/useAccounts';
+import { vi, Mock, expect, it } from 'vitest';
 
-vi.mock("@/hooks/useCustomer", () => ({
+vi.mock('@/hooks/useCustomer', () => ({
   useCustomer: vi.fn(),
 }));
 
-vi.mock("@/hooks/useAppContext", () => ({
+vi.mock('@/hooks/useAppContext', () => ({
   useAppContext: vi.fn(),
 }));
 
-vi.mock("@/hooks/useAccounts", () => ({
+vi.mock('@/hooks/useAccounts', () => ({
   useAccounts: vi.fn(),
 }));
 
-describe("DashboardPage", () => {
-  const mockCustomerId = "36e89d5d-c1cc-4202-944e-cfba7a3327b3";
+describe('DashboardPage', () => {
+  const mockCustomerId = '36e89d5d-c1cc-4202-944e-cfba7a3327b3';
   const mockAccounts = [
     {
-      id: "12349d5d-c1cc-4202-944e-cfba7a3327b3",
-      name: "Account 1",
+      id: '12349d5d-c1cc-4202-944e-cfba7a3327b3',
+      name: 'Account 1',
       balance: 10,
     },
     {
-      id: "99009d5d-c1cc-4202-944e-cfba7a3327b3",
-      name: "Account 2",
+      id: '99009d5d-c1cc-4202-944e-cfba7a3327b3',
+      name: 'Account 2',
       balance: 20,
     },
   ];
@@ -39,7 +39,7 @@ describe("DashboardPage", () => {
 
     (useAppContext as Mock).mockReturnValue({
       state: {
-        customerName: "John Doe",
+        customerName: 'John Doe',
         accounts: mockAccounts,
       },
       dispatch: vi.fn(),
@@ -56,14 +56,14 @@ describe("DashboardPage", () => {
     });
   });
 
-  it("should render the DashboardPage component", async () => {
+  it('should render the DashboardPage component', async () => {
     render(
       <Router>
         <DashboardPage />
       </Router>
     );
 
-    expect(await screen.findByText("Accounts")).toBeTruthy();
+    expect(await screen.findByText('Accounts')).toBeTruthy();
   });
 
   it('should render the Spinner and "Loading account data" when loading is true', async () => {
@@ -79,14 +79,14 @@ describe("DashboardPage", () => {
       </Router>
     );
 
-    expect(await screen.findByText("Loading account data")).toBeTruthy();
+    expect(await screen.findByText('Loading account data...')).toBeTruthy();
   });
 
-  it("should render the error message and retry button when there is an error", async () => {
+  it('should render the error message and retry button when there is an error', async () => {
     (useCustomer as Mock).mockReturnValue({
       getCustomerData: vi.fn(),
       loading: false,
-      error: "Failed to load data",
+      error: 'Failed to load data',
     });
 
     render(
@@ -95,12 +95,12 @@ describe("DashboardPage", () => {
       </Router>
     );
 
-    expect(await screen.findByText("Error")).toBeTruthy();
-    expect(await screen.findByText("Failed to load data")).toBeTruthy();
-    expect(await screen.findByRole("button", { name: /retry/i })).toBeTruthy();
+    expect(await screen.findByText('Error')).toBeTruthy();
+    expect(await screen.findByText('Failed to load data')).toBeTruthy();
+    expect(await screen.findByRole('button', { name: /retry/i })).toBeTruthy();
   });
 
-  it("should redirect to home if customerId is not present", async () => {
+  it('should redirect to home if customerId is not present', async () => {
     Storage.prototype.getItem = vi.fn(() => null);
 
     render(
@@ -110,27 +110,27 @@ describe("DashboardPage", () => {
     );
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe("/");
+      expect(window.location.pathname).toBe('/');
     });
   });
 
-  it("should render the account widgets when accounts are available", async () => {
+  it('should render the account widgets when accounts are available', async () => {
     render(
       <Router>
         <DashboardPage />
       </Router>
     );
 
-    expect(await screen.findByText("Accounts")).toBeTruthy();
+    expect(await screen.findByText('Accounts')).toBeTruthy();
   });
 
-  it("should render the transaction widget when transactions are available", async () => {
+  it('should render the transaction widget when transactions are available', async () => {
     render(
       <Router>
         <DashboardPage />
       </Router>
     );
 
-    expect(await screen.findByText("Last transactions")).toBeTruthy();
+    expect(await screen.findByText('Last transactions')).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Table,
   TableHeader,
@@ -10,10 +10,10 @@ import {
   Spinner,
   Button,
   Chip,
-} from "@heroui/react";
-import { formatAmount, formatDate } from "@/utils/formatter";
-import { TransferStatusEnum } from "@/constants/common";
-import { Transaction } from "@/types/common";
+} from '@heroui/react';
+import { formatAmount, formatDate } from '@/utils/formatter';
+import { TransferStatusEnum } from '@/constants/common';
+import { Transaction } from '@/types/common';
 
 interface TransactionsListProps {
   transactions: { total: number; results: Transaction[] };
@@ -45,19 +45,19 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
 
   const StatusBadge = (status: string) => {
     const statusColor = {
-      [TransferStatusEnum.Pending]: "success",
-      [TransferStatusEnum.Failed]: "danger",
-      [TransferStatusEnum.Executed]: "success",
-      [TransferStatusEnum.InReview]: "warning",
-      [TransferStatusEnum.Cancelled]: "danger",
+      [TransferStatusEnum.Pending]: 'success',
+      [TransferStatusEnum.Failed]: 'danger',
+      [TransferStatusEnum.Executed]: 'success',
+      [TransferStatusEnum.InReview]: 'warning',
+      [TransferStatusEnum.Cancelled]: 'danger',
     };
 
     const statusLabel = {
-      [TransferStatusEnum.Pending]: "Pending",
-      [TransferStatusEnum.Failed]: "Failed",
-      [TransferStatusEnum.Executed]: "Executed",
-      [TransferStatusEnum.InReview]: "In Review",
-      [TransferStatusEnum.Cancelled]: "Cancelled",
+      [TransferStatusEnum.Pending]: 'Pending',
+      [TransferStatusEnum.Failed]: 'Failed',
+      [TransferStatusEnum.Executed]: 'Executed',
+      [TransferStatusEnum.InReview]: 'In Review',
+      [TransferStatusEnum.Cancelled]: 'Cancelled',
     };
 
     return (
@@ -69,7 +69,6 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
       </Chip>
     );
   };
-  console.log(items);
   return (
     <Table
       aria-label="Transactions Table"
@@ -84,7 +83,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
               color="primary"
               page={page}
               total={pages}
-              onChange={(page) => setPage(page)}
+              onChange={page => setPage(page)}
             />
           </div>
         ) : null
@@ -95,7 +94,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
         <TableColumn>Currency</TableColumn>
         <TableColumn>Amount</TableColumn>
         <TableColumn>Status</TableColumn>
-        <TableColumn>{""}</TableColumn>
+        <TableColumn>{''}</TableColumn>
       </TableHeader>
       <TableBody
         className="bg-surface "
@@ -105,7 +104,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
         {transactions &&
           Array.isArray(transactions?.results) &&
           transactions.results.length &&
-          items.map((transaction) => (
+          items.map(transaction => (
             <TableRow className="bg-surface " key={transaction.id}>
               <TableCell>
                 <span className="text-foreground">
