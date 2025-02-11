@@ -1,18 +1,21 @@
+import { FormStepProps } from "@/types/common";
 import { formatAmount } from "@/utils/formatter";
 import { Button, Input } from "@heroui/react";
 import { NotepadText, SendIcon } from "lucide-react";
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React, { ReactNode } from "react";
 
-interface TransactionDetail {
+interface TransactionDetail extends Partial<FormStepProps> {
   label: string;
   value: string;
-  formatter?: (value: any) => string;
+  formatter?: (value: unknown) => string | ReactNode;
 }
 
-export const ReviewForm = ({ onContinue, onBack }) => {
-  const { register, watch } = useFormContext();
-
+export const ReviewForm: React.FC<FormStepProps> = ({
+  onContinue,
+  onBack,
+  register,
+  watch,
+}) => {
   const transactionDetails: TransactionDetail[] = [
     {
       label: "Amount",
@@ -40,10 +43,10 @@ export const ReviewForm = ({ onContinue, onBack }) => {
 
   return (
     <>
-      <p className="font-medium text-foreground text-lg flex gap-2 items-center">
+      <p className="font-medium text-foreground text-lg flex gap-2 items-center ">
         Review Transaction <NotepadText />
       </p>
-      <p className="text-sm mb-6">
+      <p className="text-sm mb-6 text-foreground">
         Please review the transaction details before requesting it.
       </p>
 
@@ -51,16 +54,16 @@ export const ReviewForm = ({ onContinue, onBack }) => {
         {transactionDetails.map((detail) => (
           <div
             key={detail.label}
-            className="flex items-center justify-between"
+            className="flex items-center justify-between text-foreground"
             aria-label={detail.label}
           >
             <div className="flex items-center space-x-2">
-              <span className="text-gray-600">{detail.label}</span>
+              <span className="text-foreground-700">{detail.label}</span>
             </div>
-            <span className="text-sm font-semibold text-gray-900">
+            <span className="text-sm font-semibold ">
               {detail.formatter
-                ? detail.formatter(watch(detail.value))
-                : watch(detail.value)}
+                ? (detail.formatter(watch(detail.value)) as ReactNode) || ""
+                : ((watch(detail.value) ?? "") as ReactNode)}
             </span>
           </div>
         ))}
@@ -97,7 +100,7 @@ export const ReviewForm = ({ onContinue, onBack }) => {
           endContent={<SendIcon />}
           aria-label="Confirm transaction"
         >
-          Confirm transaction
+          Request transaction
         </Button>
       </div>
     </>

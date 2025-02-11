@@ -109,7 +109,7 @@ export function TransferForm({
   };
 
   return (
-    <form className="flex flex-col w-full  space-y-4 p-6">
+    <form className="flex flex-col w-full  space-y-4 p-6 bg-surface">
       {TransferStepsComponents[transferStep]}
     </form>
   );

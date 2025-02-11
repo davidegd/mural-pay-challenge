@@ -24,20 +24,24 @@ export const AccountDetailDrawer: React.FC<AccountDetailDrawerProps> = ({
   setSelectedAccount,
 }) => {
   return (
-    <Drawer isOpen={isOpen} onOpenChange={onOpenChange}>
-      <DrawerContent>
+    <Drawer
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+      className="!bg-background"
+    >
+      <DrawerContent className="bg-background">
         <DrawerHeader>Account Details</DrawerHeader>
-        <DrawerBody>
-          <div className="space-y-4">
+        <DrawerBody className="bg-background">
+          <div className="space-y-4 bg-background ">
             <div className="flex items-center space-x-4 pb-4 border-b mb-4">
               <div className="bg-blue-100 p-3 rounded-full">
                 <Landmark className="h-6 w-6 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl font-semibold text-foreground">
                   {selectedAccount.name}
                 </h2>
-                <span className="text-lg font-bold text-indigo-600">
+                <span className="text-lg font-bold text-indigo-500">
                   {selectedAccount.balance.tokenSymbol}
                 </span>{" "}
                 <span className="text-lg font-bold text-primary">
@@ -46,22 +50,25 @@ export const AccountDetailDrawer: React.FC<AccountDetailDrawerProps> = ({
               </div>
             </div>
             <div className="space-y-4 border-b pb-4">
-              <span className="font-semibold text-lg">
+              <span className="font-semibold text-lg text-foreground">
                 Deposit account details
               </span>
               <div className="flex items-center justify-between">
-                <span>Beneficiary Name:</span>
-                <span className=" rounded"> {selectedAccount.name}</span>
+                <span text-foreground>Beneficiary Name:</span>
+                <span className=" rounded  text-foreground">
+                  {" "}
+                  {selectedAccount.name}
+                </span>
               </div>
               <div className="flex items-center justify-between">
-                <span>Bank Account Number:</span>
+                <span className=" text-foreground">Bank Account Number:</span>
                 <div className="text-right">
-                  <span>
+                  <span className=" text-foreground">
                     {selectedAccount.depositAccount?.bankAccountNumber}
                   </span>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between  text-foreground">
                 <span>Bank Routing Number:</span>
                 <div className="text-right">
                   <span>
@@ -69,9 +76,9 @@ export const AccountDetailDrawer: React.FC<AccountDetailDrawerProps> = ({
                   </span>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between  text-foreground">
                 <span>Bank Name:</span>
-                <div className="text-right flex flex-col">
+                <div className="text-right flex flex-col ">
                   <span>{selectedAccount.depositAccount?.bankName}</span>
                   <span className="text-xs">
                     {selectedAccount.depositAccount?.bankAddress}
@@ -79,9 +86,9 @@ export const AccountDetailDrawer: React.FC<AccountDetailDrawerProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between  text-foreground">
                 <span>Beneficiary Name:</span>
-                <div className="text-right flex flex-col">
+                <div className="text-right flex flex-col  text-foreground">
                   <span>
                     {selectedAccount.depositAccount?.bankBeneficiaryName}
                   </span>
@@ -92,13 +99,13 @@ export const AccountDetailDrawer: React.FC<AccountDetailDrawerProps> = ({
                 </div>
               </div>
             </div>
-            <div className="space-y-4">
-              <span className="font-semibold text-lg">
+            <div className="space-y-4  text-foreground">
+              <span className="font-semibold text-lg ">
                 Digital account details
               </span>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between  text-foreground">
                 <span>Wallet:</span>
-                <div className="text-right flex items-center">
+                <div className="text-right flex items-center  text-foreground">
                   <span className="font-mono">
                     {formatWallet(selectedAccount?.address)}
                   </span>
@@ -112,13 +119,13 @@ export const AccountDetailDrawer: React.FC<AccountDetailDrawerProps> = ({
                   </Button>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between  text-foreground">
                 <span>Currency:</span>
                 <div className="text-right">
                   <span>{selectedAccount.balance?.tokenSymbol}</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between  text-foreground">
                 <span>Network:</span>
                 <div className="text-right">
                   <span>{selectedAccount?.blockchain}</span>

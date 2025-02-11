@@ -52,8 +52,8 @@ export const TransferAmountForm: React.FC<TransferAmountFormProps> = ({
                 setValue("payoutAccountId", account?.id);
               }}
             >
-              <div className="flex justify-between items-center w-full flex-wrap">
-                <div className="flex flex-col ">
+              <div className="flex justify-between items-center w-full flex-wrap text-foreground bg-surface">
+                <div className="flex flex-col  text-foreground  ">
                   <p>{account.name}</p>
                   <p>{account.address}</p>
                 </div>
@@ -77,7 +77,9 @@ export const TransferAmountForm: React.FC<TransferAmountFormProps> = ({
         isRequired
         size="lg"
         placeholder={formatAmount(1000)}
-        endContent={Currencies[0].code}
+        endContent={
+          <span className="text-foreground">{Currencies[0].code}</span>
+        }
         max={maxAmount}
         maxLength={maxAmount?.toString()?.length}
         isDisabled={!getValues("payoutAccountId")}

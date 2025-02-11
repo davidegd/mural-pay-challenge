@@ -32,19 +32,6 @@ export default {
           900: "#0010ff",
           DEFAULT: "#2023d4",
         },
-        purple: {
-          50: "#f9f8ff",
-          100: "#f4f0ff",
-          200: "#eae0ff",
-          300: "#d6c1ff",
-          400: "#b88eff",
-          500: "#9b5bff",
-          600: "#7c2aff",
-          700: "#5c0fff",
-          800: "#3d0aff",
-          900: "#1f00ff",
-          DEFAULT: "#9b5bff",
-        },
       },
     },
   },
@@ -60,7 +47,26 @@ export default {
           full: "9999px",
         },
       },
-      themes: {},
+      themes: {
+        dark: {
+          colors: {
+            background: "#1f212e",
+            foreground: {
+              DEFAULT: "#ffffff",
+              secondary: "#c7c7c7",
+            },
+            surface: "#2a2c3b",
+            primary: {
+              DEFAULT: "#3436ae",
+              foreground: "#ffffff",
+            },
+            secondary: {
+              DEFAULT: "#6366f1",
+              foreground: "#ffffff",
+            },
+          },
+        },
+      },
     }),
   ],
 };

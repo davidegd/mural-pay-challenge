@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { AccountsWidget } from "@/components/AccountsWidget";
 import { useCustomer } from "@/hooks/useCustomer";
 import { useAppContext } from "@/hooks/useAppContext";
@@ -32,10 +31,6 @@ const DashboardPage = () => {
       );
     }
   }, [customerId, customerName]);
-
-  if (!customerId) {
-    return <Navigate to="/" replace />;
-  }
 
   if (loading) {
     return (

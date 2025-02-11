@@ -11,11 +11,11 @@ export const TransferExecuted: React.FC<TransferExecutedProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center justify-center space-y-6 ">
-      <div className="flex flex-col items-center text-lg text-success text-center">
+      <div className="flex flex-col items-center text-xl text-success text-center">
         <CheckCheck size={72} />
         <h2 className="font-semibold">Transaction executed successfully</h2>
       </div>
-      <p className="my-4 font-bold">
+      <p className="my-4 font-semibold text-foreground">
         The transaction status will be updated shortly
       </p>
       <Button
@@ -23,7 +23,7 @@ export const TransferExecuted: React.FC<TransferExecutedProps> = ({
         color="success"
         radius="md"
         onPress={onContinue}
-        className="w-5/6 text-white my-4"
+        className="w-3/4 text-white "
         aria-label="Next"
       >
         Done

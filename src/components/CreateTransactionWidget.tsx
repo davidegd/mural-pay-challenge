@@ -28,7 +28,7 @@ export const CreateTransactionWidget: React.FC = () => {
         onPress={handleCreateTransaction}
         variant="flat"
         isIconOnly
-        className="h-16 w-16 bg-background text-indigo-600 py-2 px-4 rounded-full hover:bg-green-50 transition-colors"
+        className="h-16 w-16 bg-white text-indigo-600 py-2 px-4 rounded-full hover:bg-white-50 transition-colors"
       >
         <SwitchCameraIcon className="h-14 w-14 " />
       </Button>

@@ -1,6 +1,6 @@
 import { TransferFormStepsEnum, TransferStatusEnum } from "@/constants/common";
 import { Button } from "@heroui/react";
-import { Check } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import React from "react";
 
 interface TransferRequestedProps {
@@ -19,12 +19,14 @@ export const TransferRequested: React.FC<TransferRequestedProps> = ({
   console.log("ttt", transferRequestId);
   return (
     <div className="flex flex-col items-center justify-between space-y-6 ">
-      <div className="flex flex-col items-center text-lg text-primary text-center">
+      <div className="flex flex-col items-center text-lg  text-indigo-600 text-center">
         <Check size={72} />
-        <h2 className="font-semibold">Transaction requested successfully</h2>
+        <h2 className="font-semibold text-xl">
+          Transaction requested successfully
+        </h2>
       </div>
       <div>
-        <p className="mb-4 font-bold">
+        <p className="mb-4 font-semibold  text-foreground-600">
           You need to execute the transaction to complete the process
         </p>
 
@@ -52,6 +54,7 @@ export const TransferRequested: React.FC<TransferRequestedProps> = ({
             }}
             className="w-full text-white my-4"
             aria-label="Next"
+            endContent={<Zap />}
           >
             Execute transaction
           </Button>

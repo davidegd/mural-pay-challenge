@@ -18,9 +18,9 @@ export const TransactionsWidget: React.FC<TransactionsWidgetProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col rounded shadow-sm my-4 space-y-4 bg-background p-5">
+    <div className="flex flex-col rounded shadow-sm my-4 space-y-4 bg-background p-5 border border-foreground-200">
       <div className="flex  justify-between ">
-        <h2 className="text-2xl font-bold text-gray-800 mb-3">
+        <h2 className="text-2xl font-bold text-foreground mb-3">
           Last transactions
         </h2>
 
@@ -31,9 +31,9 @@ export const TransactionsWidget: React.FC<TransactionsWidgetProps> = ({
           variant="light"
           color="primary"
           className="text-primary"
-          endContent={<ArrowUpRight />}
+          endContent={<ArrowUpRight className="text-foreground" />}
         >
-          View all transactions
+          <span className="text-foreground"> View all transactions</span>
         </Button>
       </div>
       <TransactionsList

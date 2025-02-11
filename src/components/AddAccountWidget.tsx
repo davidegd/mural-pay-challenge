@@ -31,7 +31,7 @@ export const AddAccountWidget: React.FC = () => {
         onPress={handleAddAccount}
         variant="flat"
         isIconOnly
-        className="h-16 w-16 bg-background text-purple-600 py-2 px-4 rounded-full hover:bg-green-50 transition-colors"
+        className="h-16 w-16 bg-white text-purple-600 py-2 px-4 rounded-full hover:bg-neutral-50 transition-colors"
       >
         <PlusIcon className="h-14 w-14 " />
       </Button>

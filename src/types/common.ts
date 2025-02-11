@@ -7,7 +7,7 @@ export interface FormStepProps {
   register: UseFormRegister<FieldValues>;
   setValue: (name: string, value: unknown) => void;
   getValues: (name: string) => unknown;
-  watch: () => void;
+  watch: (value?: unknown) => void;
   isValid: boolean;
 }
 

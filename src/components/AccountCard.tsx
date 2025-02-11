@@ -14,17 +14,19 @@ export const AccountCard: React.FC<AccountCardProps> = ({
   return (
     <Card
       shadow="none"
-      className="py-3 px-4 mb-3 border border-neutral-100 hover:bg-indigo-50"
+      className="py-3 px-4 mb-3 border border-foreground-200 hover:bg-background-50 bg-surface"
     >
       <div className="flex justify-between">
-        <h4 className="text-lg font-semibold text-black">{account?.name}</h4>
+        <h4 className="text-lg font-semibold text-foreground">
+          {account?.name}
+        </h4>
         <div className="flex items-end ">
           <div>
-            <h3 className="text-md font-medium text-neutral-700">Balance</h3>
-            <span className="text-md font-bold text-indigo-600">
+            <h3 className="text-md font-medium text-foreground">Balance</h3>
+            <span className="text-xl font-bold text-indigo-700">
               {account.balance.tokenSymbol}
             </span>{" "}
-            <span className="text-lg font-bold text-primary">
+            <span className="text-xl font-bold text-indigo-600">
               {formatAmount(account.balance.balance)}
             </span>
           </div>
@@ -34,7 +36,7 @@ export const AccountCard: React.FC<AccountCardProps> = ({
       <div className="flex items-center space-x-2">
         <Wallet className="h-5 w-5 text-primary" />
         <div className="flex text-wrap items-center break-words w-5/6 sm:w-auto overflow-x-clip">
-          <span className="text-sm font-mono text-neutral-700   rounded break-words *:break-words *:break-all">
+          <span className="text-sm font-mono text-foreground   rounded break-words *:break-words *:break-all">
             {account.address}
           </span>
           <Button

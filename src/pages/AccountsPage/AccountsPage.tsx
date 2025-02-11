@@ -64,7 +64,7 @@ const AccountsPage = () => {
   return (
     <div className="min-h-screen  flex flex-col  py-4 sm:py-6 lg:py-8  space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-black">Accounts</h2>{" "}
+        <h2 className="text-2xl font-bold text-foreground">Accounts</h2>{" "}
         <Button
           onPress={() => setOpenCreateAccountModal(!openCreateAccountModal)}
           radius="md"
@@ -75,7 +75,7 @@ const AccountsPage = () => {
           Create new account
         </Button>
       </div>
-      <div className="bg-background shadow-sm rounded py-4 px-4">
+      <div className=" bg-surface shadow-sm rounded py-4 px-4">
         {Array.isArray(accounts) && accounts.length ? (
           accounts.map((account) => (
             <div

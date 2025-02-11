@@ -38,7 +38,9 @@ const TransactionsPage: React.FC = () => {
     <div className="min-h-screen flex py-4 sm:py-6 lg:py-8">
       <div className="w-full  space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-gray-800">Transactions</h2>
+          <h2 className="text-2xl font-semibold text-foreground">
+            Transactions
+          </h2>
           <Button
             size="lg"
             color="primary"

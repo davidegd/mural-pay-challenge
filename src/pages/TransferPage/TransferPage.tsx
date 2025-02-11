@@ -58,13 +58,13 @@ const TransferPage = () => {
       </div>
     ),
     [TransferStatusEnum.Failed]: (
-      <div className="flex flex-col items-center justify-center space-y-6 ">
+      <div className="flex flex-col items-center justify-center space-y-6">
         <div className="flex flex-col items-center text-lg text-pink-600 text-center">
           <TriangleAlert size={72} />
           <h2 className="font-semibold" role="title">
             Transaction failed
           </h2>
-          <p>Failed to create transaction. Please try again later.</p>
+          <p>Failed to process transaction. Please try again later.</p>
         </div>
         <Button
           size="lg"
@@ -90,7 +90,7 @@ const TransferPage = () => {
         <TransactionStepper currentStep={transferStep} />
       </div>
 
-      <div className="flex  w-full mx-auto sm:w-1/2 items-center justify-center min-h-80  bg-background shadow rounded-md ">
+      <div className="flex  w-full mx-auto sm:w-1/2 items-center justify-center min-h-80 bg-surface shadow rounded-md ">
         {transactionStatus ? (
           <>{TransactionStatus[transactionStatus]}</>
         ) : (

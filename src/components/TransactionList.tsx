@@ -73,6 +73,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   return (
     <Table
       aria-label="Transactions Table"
+      className="bg-surface "
       bottomContent={
         pages > 0 && !isWidget ? (
           <div className="flex w-full justify-center">
@@ -96,18 +97,30 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
         <TableColumn>Status</TableColumn>
         <TableColumn>{""}</TableColumn>
       </TableHeader>
-      <TableBody isLoading={isLoading} loadingContent={<Spinner />}>
+      <TableBody
+        className="bg-surface "
+        isLoading={isLoading}
+        loadingContent={<Spinner />}
+      >
         {transactions &&
           Array.isArray(transactions?.results) &&
           transactions.results.length &&
           items.map((transaction) => (
-            <TableRow key={transaction.id}>
-              <TableCell>{formatDate(transaction.createdAt)}</TableCell>
+            <TableRow className="bg-surface " key={transaction.id}>
               <TableCell>
-                {transaction.recipientsInfo[0].fiatDetails.currencyCode}
+                <span className="text-foreground">
+                  {formatDate(transaction.createdAt)}
+                </span>
               </TableCell>
               <TableCell>
-                {formatAmount(transaction.recipientsInfo[0].tokenAmount)}
+                <span className="text-foreground">
+                  {transaction.recipientsInfo[0].fiatDetails.currencyCode}
+                </span>
+              </TableCell>
+              <TableCell>
+                <span className="text-foreground">
+                  {formatAmount(transaction.recipientsInfo[0].tokenAmount)}
+                </span>
               </TableCell>
 
               <TableCell>{StatusBadge(transaction.status)}</TableCell>
@@ -117,11 +130,12 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
                   <Button
                     isDisabled={isLoading}
                     size="sm"
-                    variant="light"
-                    color="primary"
+                    variant="ghost"
+                    color="secondary"
                     onPress={() => executeTransaction(transaction.id)}
                   >
-                    Execute transaction
+                    <span className="text-foreground"></span> Execute
+                    transaction
                   </Button>
                 ) : null}
               </TableCell>
